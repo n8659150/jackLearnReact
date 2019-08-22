@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background:#ff99cc;
+            display: block;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.31/browser.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.0.0/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.0.0/react-dom.min.js"></script>
+    <script type="text/babel">
+    class ShowHide extends React.Component {
+        constructor () {
+            super();
+        
+        }
+        toggle () {
+            let oBox = this.refs['renderBox'];
+            let currentStatus = oBox.style.display;
+            currentStatus === 'none' ? oBox.style.display = 'block' : oBox.style.display = 'none';
+        }
+        render () {
+            return <div>
+                <button onClick={this.toggle.bind(this)}>showhide</button>
+                <div className="box" ref="renderBox"></div>
+            </div>
+        }
+    }
+    window.onload = function () {
+        let oDiv = document.getElementById('div1');
+        ReactDOM.render(
+            <ShowHide />,
+            oDiv
+        )
+    }
+    </script>
+        <title>Document</title>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>
