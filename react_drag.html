@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background: #ccc;
+            position: absolute
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.31/browser.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.0.0/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.0.0/react-dom.min.js"></script>
+    <script type="text/babel">
+    class Drag extends React.Component {
+        constructor () {
+            super();
+            this.state = {x:0, y:0}
+        }
+        triggerDrag (event) {
+            let distanceX = event.pageX - this.state.x;
+            let distanceY = event.pageY - this.state.y;
+            document.onmousemove = (event) => {
+                this.setState({
+                    x: event.pageX - distanceX,
+                    y: event.pageY - distanceY
+                })
+            }
+            document.onmouseup = () => {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+
+        }
+        render () {
+            return <div onMouseDown={this.triggerDrag.bind(this)} style={{left: this.state.x + 'px', top: this.state.y + 'px'}} className="box">111</div>
+        }
+    }
+    window.onload = function () {
+        let oDiv = document.getElementById('myView');
+        ReactDOM.render(
+            <Drag />,
+            oDiv
+        )
+    }
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="myView"></div>
+</body>
+
+</html>
